@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,8 @@ try
     builder.Services.AddSwaggerGen();
 
     var app = builder.Build();
+    builder.Services.AddDbContext<StudentDbContext>(options =>
+     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
     // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
