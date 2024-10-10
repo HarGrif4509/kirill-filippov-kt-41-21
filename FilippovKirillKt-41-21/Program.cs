@@ -1,3 +1,4 @@
+using FilippovKirillKt_41_21.Database;
 using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
@@ -8,15 +9,19 @@ var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentCla
 // Add services to the container.
 try
 {
+    builder.Logging.ClearProviders();
+    builder.Host.UseNLog();
+
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+ 
+    builder.Services.AddDbContext<StudentDbContext>(options =>
+         options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
     var app = builder.Build();
-    builder.Services.AddDbContext<StudentDbContext>(options =>
-     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+ 
     // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
     {

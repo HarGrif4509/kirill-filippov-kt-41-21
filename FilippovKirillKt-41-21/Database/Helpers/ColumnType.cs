@@ -1,4 +1,4 @@
-﻿namespace FilippovKirillKt_41_21.Helpers
+﻿namespace FilippovKirillKt_41_21.Database.Helpers
 {
     public class ColumnType
     {
@@ -10,6 +10,6 @@
         public const string Int = "int4";
         public const string Long = "int8";
         public const string Decimal = "money";
-        public const string Double = "numeri(9,2)";
+        public const string Double = "numeric(9,2)";
     }
 }
